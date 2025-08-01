@@ -1,14 +1,11 @@
-# Updated secure version
-import os
-from telegram.ext import Application
-from dotenv import load_dotenv
+import telebot
 
-load_dotenv()
+TOKEN = "8211462719:AAG-E5gWUo_gGa6lorCn1byph5oR8Q3IVS8"
+bot = telebot.TeleBot(TOKEN)
 
-async def start(update, context):
-    await update.message.reply_text("🤖 Bot is online!")
+@bot.message_handler(commands=["start"])
+def start(message):
+    bot.reply_to(message, "✅ Bot running on Koyeb with long polling!")
 
-if __name__ == "__main__":
-    app = Application.builder().token(os.getenv("8211462719:AAG-E5gWUo_gGa6lorCn1byph5oR8Q3IVS8")).build()
-    app.add_handler(CommandHandler("start", start))
-    app.run_polling()
+print("Bot is running...")
+bot.infinity_polling()
